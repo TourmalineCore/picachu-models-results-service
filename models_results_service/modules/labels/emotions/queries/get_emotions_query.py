@@ -1,6 +1,5 @@
-from picachu.domain import Photo, Emotion
-from picachu.domain.association_tables.association_tables import photo_emotion_table
-from picachu.domain.dal import create_session
+from models_results_service.domain import PhotoEmotion, Emotion
+from models_results_service.domain.dal import create_session
 
 
 class GetEmotionQuery:
@@ -13,9 +12,8 @@ class GetEmotionQuery:
         try:
             return current_session \
                 .query(Emotion) \
-                .join(photo_emotion_table) \
-                .join(Photo) \
-                .filter(photo_emotion_table.c.photo_id == photo_id) \
+                .join(PhotoEmotion) \
+                .filter(PhotoEmotion.photo_id == photo_id) \
                 .one_or_none()
 
         finally:
