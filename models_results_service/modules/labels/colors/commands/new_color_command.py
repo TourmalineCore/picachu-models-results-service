@@ -1,5 +1,5 @@
-from picachu.domain import PhotoColor
-from picachu.domain.dal import create_session
+from models_results_service.domain import PhotoColor
+from models_results_service.domain.dal import create_session
 
 
 class NewColorCommand:

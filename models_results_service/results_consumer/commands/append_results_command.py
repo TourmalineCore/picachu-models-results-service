@@ -1,11 +1,11 @@
 import logging
-from picachu.domain import Emotion, Association
-from picachu.modules.labels.associations.commands.new_photo_association_command import NewPhotoAssociationCommand
-from picachu.modules.labels.emotions.commands.new_photo_emotion_command import NewPhotoEmotionCommand
-from picachu.domain import Object
-from picachu.modules.labels.objects.commands.new_photo_object_command import NewPhotoObjectCommand
-from picachu.domain import PhotoColor
-from picachu.modules.labels.colors.commands.new_photo_color_command import NewPhotoColorCommand
+
+from models_results_service.domain import PhotoColor, Object, Emotion, Association
+from models_results_service.modules.labels.associations.commands.new_photo_association_command import \
+    NewPhotoAssociationCommand
+from models_results_service.modules.labels.colors.commands.new_photo_color_command import NewPhotoColorCommand
+from models_results_service.modules.labels.emotions.commands.new_photo_emotion_command import NewPhotoEmotionCommand
+from models_results_service.modules.labels.objects.commands.new_photo_object_command import NewPhotoObjectCommand
 
 insert_to_db_commands = {
     'emotion': NewPhotoEmotionCommand,
@@ -26,6 +26,7 @@ class AppendResultsCommand:
     @staticmethod
     def execute(result_message):
         logging.warning(f'Add result to db for message: {result_message}')
+
         for result in result_message['result']:
             try:
                 result_to_entity = map_to_model_result[result_message['model_type']]

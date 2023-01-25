@@ -1,17 +1,17 @@
-from models_results_service.domain import Emotion
+from models_results_service.domain import Object
 from models_results_service.domain.dal import create_session
 
 
-class NewEmotionCommand:
+class NewObjectCommand:
     def __init__(self):
         pass
 
     @staticmethod
-    def create(emotion_entity: Emotion) -> int:
+    def create(object_entity: Object) -> int:
         current_session = create_session()
         try:
-            current_session.add(emotion_entity)
+            current_session.add(object_entity)
             current_session.commit()
-            return emotion_entity.id
+            return object_entity.id
         finally:
             current_session.close()
