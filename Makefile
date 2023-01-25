@@ -91,17 +91,17 @@ poetry: ## executes poetry command in the docker container
 
 .PHONY: poetry-install
 poetry-install: ## installs package in the **docker** container
-	docker compose -f docker-compose.yml -f docker-compose.local.yml build --quiet picachu-api
-	docker compose -f docker-compose.yml -f docker-compose.local.yml run --rm --no-deps picachu-api poetry add $(POETRY_INSTALL_PACKAGE_NAME) $(POETRY_INSTALL_PACKAGE_VERSION)
+	docker compose -f docker-compose.yml build --quiet models-results-service
+	docker compose -f docker-compose.yml run --rm --no-deps models-results-service poetry add $(POETRY_INSTALL_PACKAGE_NAME) $(POETRY_INSTALL_PACKAGE_VERSION)
 
 .PHONY: run
 run: ## runs the api locally via **docker**
-	docker compose -f docker-compose.yml -f docker-compose.local.yml up --build run-api-locally
+	docker compose -f docker-compose.yml up --build run-models-results-service
 
 .PHONY: test
 test: ## runs unit tests via **docker**
-	docker compose run --rm --no-deps picachu-api poetry run pytest -v
+	docker compose run --rm --no-deps models-results-service poetry run pytest -v
 
 .PHONY: create-migration
 create-migration: ## create migration with <migration_name> via **docker**
-	docker compose -f docker-compose.yml -f docker-compose.local.yml run --rm --no-deps picachu-api poetry run flask db migrate -m "$(MIGRATION_NAME)"
+	docker compose -f docker-compose.yml run --rm --no-deps models-results-service poetry run flask db migrate -m "$(MIGRATION_NAME)"
