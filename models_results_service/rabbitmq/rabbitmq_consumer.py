@@ -2,12 +2,12 @@ import json
 import logging
 import timeit
 import traceback
+from threading import Thread
 
 from pika import BlockingConnection, ConnectionParameters, PlainCredentials
 from pika.exceptions import ConnectionClosedByBroker, AMQPChannelError, AMQPConnectionError
 
-from config import RabbitMQConfigProvider
-
+from models_results_service.config import RabbitMQConfigProvider
 
 (
     rabbitmq_host,
@@ -16,7 +16,7 @@ from config import RabbitMQConfigProvider
 ) = RabbitMQConfigProvider.get_config()
 
 
-class RabbitMqConsumer:
+class RabbitMqConsumer(Thread):
     def __init__(
             self,
             queue_name,
@@ -25,8 +25,11 @@ class RabbitMqConsumer:
         self.queue_name = queue_name
         self.consumption_handler = consumption_handler
 
+        super().__init__(target=self.run)
+
     def run(self):
         logging.info('RabbitMQ consumer of queue={0} started'.format(self.queue_name))
+        print('RabbitMQ consumer of queue={0} started'.format(self.queue_name))
 
         parameters = ConnectionParameters(
             host=rabbitmq_host,
@@ -50,14 +53,7 @@ class RabbitMqConsumer:
                 )
 
                 channel.basic_consume(self.queue_name, self.on_message)
-
-                # try:
                 channel.start_consuming()
-                # except KeyboardInterrupt:
-                #     logging.info('Aborting...')
-                #     channel.stop_consuming()
-                #     connection.close()
-                #     break
 
             except (ConnectionClosedByBroker, AMQPConnectionError):
                 logging.info('Connection was closed, retrying...')
