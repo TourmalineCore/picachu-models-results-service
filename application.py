@@ -4,7 +4,8 @@ from flask_cors import CORS
 
 from models_results_service.domain.dal import build_connection_string, db, migrate
 from models_results_service.modules.labels.labels_routes import labels_blueprint
-from models_results_service.results_consumer.results_consumer import start_results_consumer
+
+from models_results_service.modules.models_results.models_results_consumer import start_results_consumer
 
 
 def create_app():
@@ -12,10 +13,8 @@ def create_app():
     app = Flask(__name__)
     app.config.from_object('models_results_service.config')
 
-    # without this /feeds will work but /feeds/ with the slash at the end won't
     app.url_map.strict_slashes = False
 
-    # allow to call the api from any origin for now
     CORS(
         app,
     )
@@ -27,7 +26,6 @@ def create_app():
     db.init_app(app)
     migrate.init_app(app, db)
 
-    # runs pending migrations
     with app.app_context():
         _upgrade()
 

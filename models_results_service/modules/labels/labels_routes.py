@@ -5,7 +5,8 @@ import time
 from models_results_service.modules.labels.associations.queries.get_associations_query import GetAssociationQuery
 from models_results_service.modules.labels.colors.queries.get_colors_query import GetColorQuery
 from models_results_service.modules.labels.emotions.queries.get_emotions_query import GetEmotionQuery
-from models_results_service.modules.labels.general_queries.get_photo_ids import GetPhotoIdsQuery
+from models_results_service.modules.labels.general.queries.get_photo_query import GetPhotoQuery
+from models_results_service.modules.labels.general.schemas.labels_response_schema import LabelsResponseSchema
 from models_results_service.modules.labels.objects.queries.get_objects_query import GetObjectQuery
 
 labels_blueprint = Blueprint('labels', __name__, url_prefix='/labels')
@@ -46,28 +47,22 @@ def get_labels_by_photo_id(photo_id: str):
     return {
         'objects': objects_response,
         'emotions': emotions_response,
-        'photo_color': color_response,
+        'colors': color_response,
         'associations': associations_response,
     }
 
 
 @labels_blueprint.route('/', methods=['GET'])
 def get_photo_with_model_results_but_without_associations():
-    photos_with_model_results_but_without_associations = GetPhotoIdsQuery().without_associative_tags()
-
+    photos_with_model_results_but_without_associations = GetPhotoQuery().with_model_results_but_without_associative_tags()
     photo_ids = list(map(lambda photo: photo.photo_id, photos_with_model_results_but_without_associations))
 
-    response = []
-
+    labels_response = []
     for photo_id in photo_ids:
-        tags = []
-        tags.extend([object_.name for object_ in GetObjectQuery().by_photo_id(photo_id)])
-        tags.append(GetEmotionQuery().by_photo_id(photo_id).name)
+        photo_tags = []
+        photo_tags.extend([object_.name for object_ in GetObjectQuery().by_photo_id(photo_id)])
+        photo_tags.extend([emotion.name for emotion in GetEmotionQuery().by_photo_id(photo_id)])
 
-        response.append({
-            "photo_id": photo_id,
-            "tags": tags
-        })
+        labels_response.append(LabelsResponseSchema(photo_id=photo_id, tags=photo_tags).dict())
 
-    print(response)
-    return response
+    return labels_response
