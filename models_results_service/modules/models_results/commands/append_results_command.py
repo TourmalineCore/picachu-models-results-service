@@ -44,7 +44,6 @@ class AppendResultsCommand:
 
                 insert_to_db_command = insert_to_db_commands[model_type]
                 insert_to_db_command().create(result_entity, result_message['photo_id'])
-
                 logging.warning('Results inserted.')
 
             except Exception as e:

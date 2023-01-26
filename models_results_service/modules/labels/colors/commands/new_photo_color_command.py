@@ -8,12 +8,8 @@ class NewPhotoColorCommand:
 
     @staticmethod
     def create(color_entity: PhotoColor, photo_id: int):
-        current_session = create_session()
         color_entity.photo_id = photo_id
 
-        try:
+        with create_session() as current_session:
             current_session.add(color_entity)
             current_session.commit()
-        finally:
-            current_session.close()
-
