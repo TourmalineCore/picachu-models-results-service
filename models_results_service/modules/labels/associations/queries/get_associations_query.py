@@ -8,24 +8,16 @@ class GetAssociationQuery:
         pass
 
     def by_photo_id(self, photo_id):
-        current_session = create_session()
-        try:
+        with create_session() as current_session:
             return current_session \
                 .query(Association) \
                 .join(PhotoAssociation) \
                 .filter(PhotoAssociation.photo_id == photo_id) \
                 .all()
 
-        finally:
-            current_session.close()
-
-
     def by_name(self, association_name):
-        current_session = create_session()
-        try:
+        with create_session() as current_session:
             return current_session \
                 .query(Association) \
                 .filter(Association.name == association_name) \
                 .one_or_none()
-        finally:
-            current_session.close()

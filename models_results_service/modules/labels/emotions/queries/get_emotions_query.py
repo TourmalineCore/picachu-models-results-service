@@ -8,24 +8,16 @@ class GetEmotionQuery:
         pass
 
     def by_photo_id(self, photo_id):
-        current_session = create_session()
-        try:
+        with create_session() as current_session:
             return current_session \
                 .query(Emotion) \
                 .join(PhotoEmotion) \
                 .filter(PhotoEmotion.photo_id == photo_id) \
-                .one_or_none()
-
-        finally:
-            current_session.close()
-
+                .all()
 
     def by_name(self, emotion_name):
-        current_session = create_session()
-        try:
+        with create_session() as current_session:
             return current_session \
                 .query(Emotion) \
                 .filter(Emotion.name == emotion_name) \
                 .one_or_none()
-        finally:
-            current_session.close()

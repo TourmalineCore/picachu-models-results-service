@@ -2,7 +2,7 @@ from models_results_service.domain import PhotoAssociation, PhotoColor, PhotoEmo
 from models_results_service.domain.dal import create_session
 
 
-class GetPhotoIdsQuery:
+class GetPhotoQuery:
     def __init__(self):
         pass
 
