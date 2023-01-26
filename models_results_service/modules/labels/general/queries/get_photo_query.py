@@ -7,7 +7,7 @@ class GetPhotoIdsQuery:
         pass
 
     @staticmethod
-    def without_associative_tags():
+    def with_model_results_but_without_associative_tags():
         current_session = create_session()
 
         try:
