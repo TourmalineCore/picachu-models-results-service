@@ -1,10 +1,4 @@
-"""Сonfiguration
-Use env var to override
-"""
 import os
-
-ENV = os.getenv('FLASK_ENV')
-DEBUG = ENV == 'development'
 
 rabbitmq_host = os.getenv('RABBITMQ_HOST')
 rabbitmq_username = os.getenv('RABBITMQ_DEFAULT_USER')
@@ -21,4 +15,4 @@ if not rabbitmq_password:
     raise ValueError('You should specify RABBITMQ_DEFAULT_PASS to be able to connect to RabbitMQ.')
 
 if not rabbitmq_models_results_queue_name:
-    raise ValueError('You should specify RABBITMQ_MODELS_RESULTS_QUEUE_NAME to be able to connect to models_results queue.')
+    raise ValueError('You should specify RABBITMQ_MODELS_RESULTS_QUEUE_NAME to be able to connect to results_consumer queue.')
