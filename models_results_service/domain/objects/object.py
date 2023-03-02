@@ -1,4 +1,4 @@
-from models_results_service.domain.dal import db
+from models_results_service.domain.data_access_layer.db import db
 
 
 class Object(db.Model):
@@ -8,11 +8,6 @@ class Object(db.Model):
     name = db.Column(db.String(2048), nullable=False)
 
     photo_object = db.relationship("PhotoObject", back_populates='object')
-    # photos = db.relationship(
-    #     'PhotoObject',
-    #     backref='objects',
-    #     lazy='dynamic'
-    # )
 
     def __repr__(self):
         return f'<Object {self.id!r} name:{self.name!r}>'

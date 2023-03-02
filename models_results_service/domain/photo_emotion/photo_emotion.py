@@ -1,4 +1,5 @@
-from models_results_service.domain.dal import db
+from models_results_service.domain.data_access_layer.db import db
+
 
 
 class PhotoEmotion(db.Model):

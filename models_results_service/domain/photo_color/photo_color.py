@@ -1,10 +1,8 @@
-from models_results_service.domain.dal import db
+from models_results_service.domain.data_access_layer.db import db
 
 
 class PhotoColor(db.Model):
     __tablename__ = 'photo_color'
-
-    # id = db.Column(db.BigInteger, primary_key=True, autoincrement=True)
 
     photo_id = db.Column(db.Integer, nullable=False, primary_key=True)
     red = db.Column(db.Integer, nullable=False, primary_key=True)
