@@ -12,7 +12,6 @@ Makefile
 Dockerfile
 .dockerignore
 docker-compose.yml
-docker-compose.local.yml
 
 # Python project related
 .env*
