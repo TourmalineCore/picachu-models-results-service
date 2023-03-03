@@ -12,24 +12,24 @@ from models_results_service.modules.results.objects.commands.new_photo_object_co
 from models_results_service.modules.results.objects.schemas.object_schema import ObjectSchema
 
 insert_to_db_commands = {
-    'emotion': NewPhotoEmotionCommand,
+    'emotions': NewPhotoEmotionCommand,
     'objects': NewPhotoObjectCommand,
     'colors': NewPhotoColorCommand,
-    'association': NewPhotoAssociationCommand,
+    'associations': NewPhotoAssociationCommand,
 }
 
 map_result_to_entity = {
-    'emotion': Emotion,
+    'emotions': Emotion,
     'objects': Object,
     'colors': PhotoColor,
-    'association': Association,
+    'associations': Association,
 }
 
 validate_result_with_schema = {
-    'emotion': EmotionSchema,
+    'emotions': EmotionSchema,
     'objects': ObjectSchema,
     'colors': PhotoColorSchema,
-    'association': AssociationSchema,
+    'associations': AssociationSchema,
 }
 
 
