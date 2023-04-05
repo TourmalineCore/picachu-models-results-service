@@ -1,0 +1,53 @@
+version: '3.8'
+
+services:
+  run-models-results-service:
+    container_name: models-results-service-local-starter
+    restart: "no"
+    image: tianon/true
+    depends_on:
+      - models-results-service
+
+  models-results-service:
+    build:
+      context: .
+    container_name: models-results-service
+    restart: unless-stopped
+    command: poetry run flask run
+    depends_on:
+      - models-results-service-postgres
+    volumes:
+      - .:/app-workspace
+    env_file:
+      - .env
+    ports:
+      - "7532:5000"
+    networks:
+      - picachu-api-private_picachu-net
+      - internal
+
+  models-results-service-postgres:
+    container_name: models-results-service-postgres
+    image: postgres:13.3-alpine
+    restart: always
+    volumes:
+      - models-results-service-postgres-data:/var/lib/postgresql/data/
+    healthcheck:
+      test: "pg_isready -U $$POSTGRES_USER"
+      timeout: 10s
+      interval: 10s
+      retries: 3
+    env_file:
+      - .env
+    ports:
+      - "7533:5432"
+    networks:
+      - internal
+
+volumes:
+  models-results-service-postgres-data:
+
+networks:
+  internal: {}
+  picachu-api-private_picachu-net:
+    external: true
