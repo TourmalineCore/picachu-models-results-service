@@ -2,7 +2,7 @@ from models_results_service.domain import PhotoEmotion, Emotion
 from models_results_service.domain.data_access_layer.session import session
 
 
-class GetEmotionQuery:
+class GetEmotionsQuery:
 
     def __init__(self):
         pass

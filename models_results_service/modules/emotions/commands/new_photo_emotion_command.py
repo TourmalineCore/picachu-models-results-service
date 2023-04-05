@@ -1,8 +1,6 @@
 from models_results_service.domain import Emotion, PhotoEmotion
 from models_results_service.domain.data_access_layer.session import session
-from models_results_service.modules.results.emotions.commands.new_emotion_command import NewEmotionCommand
-from models_results_service.modules.results.emotions.queries.get_emotions_query import GetEmotionQuery
-from models_results_service.modules.results.general.get_from_db_or_create.get_from_db_or_create import \
+from models_results_service.modules.results.get_from_db_or_create.get_from_db_or_create import \
     get_from_db_or_create
 
 

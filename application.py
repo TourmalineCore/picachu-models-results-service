@@ -4,6 +4,10 @@ from flask_cors import CORS
 
 from models_results_service.domain.data_access_layer.build_connection_string import build_connection_string
 from models_results_service.domain.data_access_layer.db import db, migrate
+from models_results_service.modules.associations.associations_routes import associations_blueprint
+from models_results_service.modules.colors.colors_routes import colors_blueprint
+from models_results_service.modules.emotions.emotions_routes import emotions_blueprint
+from models_results_service.modules.objects.objects_routes import objects_blueprint
 from models_results_service.modules.results.results_routes import results_blueprint
 
 from models_results_service.modules.results_consumer.results_consumer import start_results_consumer
@@ -39,5 +43,9 @@ def register_blueprints(app):
     """Register all blueprints for application"""
     results_service_blueprint = Blueprint('results-service', __name__, url_prefix='/results-service')
     results_service_blueprint.register_blueprint(results_blueprint)
+    results_service_blueprint.register_blueprint(associations_blueprint)
+    results_service_blueprint.register_blueprint(colors_blueprint)
+    results_service_blueprint.register_blueprint(emotions_blueprint)
+    results_service_blueprint.register_blueprint(objects_blueprint)
 
     app.register_blueprint(results_service_blueprint)

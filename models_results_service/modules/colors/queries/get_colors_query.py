@@ -2,7 +2,7 @@ from models_results_service.domain import PhotoColor
 from models_results_service.domain.data_access_layer.session import session
 
 
-class GetColorQuery:
+class GetColorsQuery:
     def __init__(self):
         pass
 

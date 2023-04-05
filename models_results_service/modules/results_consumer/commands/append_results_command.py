@@ -1,15 +1,15 @@
 import logging
 
 from models_results_service.domain import PhotoColor, Object, Emotion, Association
-from models_results_service.modules.results.associations.commands.new_photo_association_command import \
+from models_results_service.modules.associations.commands.new_photo_association_command import \
     NewPhotoAssociationCommand
-from models_results_service.modules.results.associations.schemas.association_schema import AssociationSchema
-from models_results_service.modules.results.colors.commands.new_photo_color_command import NewPhotoColorCommand
-from models_results_service.modules.results.colors.schemas.photo_color_schema import PhotoColorSchema
-from models_results_service.modules.results.emotions.commands.new_photo_emotion_command import NewPhotoEmotionCommand
-from models_results_service.modules.results.emotions.schemas.emotion_schema import EmotionSchema
-from models_results_service.modules.results.objects.commands.new_photo_object_command import NewPhotoObjectCommand
-from models_results_service.modules.results.objects.schemas.object_schema import ObjectSchema
+from models_results_service.modules.associations.schemas.association_schema import AssociationSchema
+from models_results_service.modules.colors.commands.new_photo_color_command import NewPhotoColorCommand
+from models_results_service.modules.colors.schemas.photo_color_schema import PhotoColorSchema
+from models_results_service.modules.emotions.commands.new_photo_emotion_command import NewPhotoEmotionCommand
+from models_results_service.modules.emotions.schemas.emotion_schema import EmotionSchema
+from models_results_service.modules.objects.commands.new_photo_object_command import NewPhotoObjectCommand
+from models_results_service.modules.objects.schemas.object_schema import ObjectSchema
 
 insert_to_db_commands = {
     'emotions': NewPhotoEmotionCommand,

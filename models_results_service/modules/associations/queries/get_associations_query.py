@@ -2,7 +2,7 @@ from models_results_service.domain import Association, PhotoAssociation
 from models_results_service.domain.data_access_layer.session import session
 
 
-class GetAssociationQuery:
+class GetAssociationsQuery:
 
     def __init__(self):
         pass

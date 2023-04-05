@@ -2,7 +2,7 @@ from models_results_service.domain.data_access_layer.session import session
 from models_results_service.domain import PhotoObject, Object
 
 
-class GetObjectQuery:
+class GetObjectsQuery:
     def __init__(self):
         pass
 
