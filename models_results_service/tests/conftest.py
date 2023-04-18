@@ -4,6 +4,7 @@ from sqlalchemy import delete
 from application import create_app
 from models_results_service.domain import PhotoColor
 from models_results_service.domain.data_access_layer.db import db
+from models_results_service.domain.data_access_layer.session import session
 
 
 @pytest.fixture
@@ -25,7 +26,8 @@ def app_with_db(flask_app):
 
     yield flask_app
 
-    db.session.commit()
+    with session() as current_session:
+        current_session.commit()
     db.drop_all()
 
 
@@ -36,10 +38,13 @@ def app_with_data(app_with_db):
     photo_color.red = 100
     photo_color.green = 100
     photo_color.blue = 100
-    db.session.add(photo_color)
-    db.session.commit()
+
+    with session() as current_session:
+        current_session.add(photo_color)
+        current_session.commit()
 
     yield app_with_db
 
-    db.session.execute(delete(PhotoColor))
-    db.session.commit()
+    with session() as current_session:
+        current_session.execute(delete(PhotoColor))
+        current_session.commit()
