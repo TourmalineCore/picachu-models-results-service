@@ -21,7 +21,7 @@ services:
     env_file:
       - .env
     ports:
-      - "7532:5000"
+      - "7542:5000"
     networks:
       - picachu-api-private_picachu-net
       - internal
@@ -40,7 +40,7 @@ services:
     env_file:
       - .env
     ports:
-      - "7533:5432"
+      - "7543:5432"
     networks:
       - internal
 

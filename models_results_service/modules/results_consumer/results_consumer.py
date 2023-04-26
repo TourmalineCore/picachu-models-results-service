@@ -9,7 +9,9 @@ def process_result(message):
 
 
 def start_results_consumer():
-    MessagesConsumerBase(
+    consuming_thread = MessagesConsumerBase(
         rabbitmq_models_results_queue_name,
         process_result,
-    ).start()
+    )
+    consuming_thread.daemon = True
+    consuming_thread.start()
