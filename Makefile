@@ -57,7 +57,7 @@ endif
 ###
 .PHONY: help
 help: ;@true
-	$(info Makefile for Picachu project)
+	$(info Makefile for Tourmanique project)
 	$(info )
 	$(info Avaliable targets: )
 	$(info  * install-local-deps                        - installs all dependencies from poetry.lock to have helpers for code locally)
@@ -82,12 +82,12 @@ lint: ## runs linting
 	--load-plugins pylint_flask_sqlalchemy \
 	--generated-members=Column \
 	--output-format=colorized \
-	application.py picachu || poetry run pylint-exit $$?
+	application.py tourmanique || poetry run pylint-exit $$?
 
 .PHONY: poetry
 poetry: ## executes poetry command in the docker container
 	@echo poetry $(POETRY_ARGS)
-	docker compose run --rm --no-deps picachu-api poetry $(POETRY_ARGS)
+	docker compose run --rm --no-deps tourmanique-api poetry $(POETRY_ARGS)
 
 .PHONY: poetry-install
 poetry-install: ## installs package in the **docker** container
